@@ -1,0 +1,81 @@
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-plus-circle me-2"></i>Add/Update Component
+    </div>
+    <div class="card-body">
+        <div class="mb-2 small">
+            <strong>Search options:</strong> 
+            <span class="me-3">DK-No. = DigiKey Part Number</span>
+            <span>MP-No. = Manufacturer Part Number</span>
+        </div>
+        
+        <form action="/update_stock" method="post" id="add-part-form" autocomplete="off" novalidate>
+            <div class="mb-3">
+                <label for="part_search" class="form-label">Part Number Search</label>
+                <div class="input-group">
+                    <select class="form-select flex-grow-0 w-auto" id="search_type">
+                        <option value="mp">MP-No.</option>
+                        <option value="dk">DK-No.</option>
+                    </select>
+                    <input type="text" class="form-control" id="part_search" 
+                          placeholder="Enter part number" maxlength="100">
+                    <button type="button" class="btn btn-outline-secondary" id="clear-part-search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="form-text">Examples: RC0805FR-0724K3L (MP-No.) or 311-24.3KCRCT-ND (DK-No.)</div>
+            </div>
+            
+            <!-- Hidden fields for actual values -->
+            <input type="hidden" id="part_number" name="part_number" value="">
+            <input type="hidden" id="digikey_number" name="digikey_number" value="">
+            
+            <div class="mb-3">
+                <label for="matching_part" class="form-label">Found Match</label>
+                <select class="form-select" id="matching_part" required>
+                    <option value="" selected>First search for a part number</option>
+                </select>
+                <div class="form-text" id="match_type_hint">After searching, you can select a matching part number</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="0" value="0" required
+                       oninput="this.value = Math.max(0, Math.floor(this.value) || 0)">
+                <div class="invalid-feedback">Please enter a valid, non-negative integer.</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" name="description" readonly>
+            </div>
+            
+            <!-- New field for device assignment (Usage) -->
+            <div class="mb-3">
+                <label for="usage" class="form-label">Usage</label>
+                <div class="input-group">
+                    <select class="form-select" id="usage" name="usage" multiple>
+                        {% for device in hardware_devices %}
+                        <option value="{{ device.id|e }}">{{ device.name|e }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#newDeviceModal">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div class="form-text">Select one or more devices in which this part is used</div>
+            </div>
+            
+            <!-- New area for quantity specification per selected device -->
+            <div id="usage-quantities" class="mb-3" style="display: none;">
+                <label class="form-label">Required Quantity per Device</label>
+                <div id="device-quantity-inputs" class="device-quantity-container">
+                    <!-- Dynamically filled with JavaScript -->
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-save me-2"></i>Update Inventory
+            </button>
+        </form>
+    </div>
+</div>

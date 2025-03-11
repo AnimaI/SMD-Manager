@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com;">
+    <title>SMD Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% include 'partials/header.html' %}
+
+        <!-- Upload Progress Area -->
+        {% if tracking_id %}
+        <div id="upload-progress-container" class="mb-4" data-tracking-id="{{ tracking_id }}">
+            <h5 id="progress-title">BOM Import Progress</h5>
+            <div class="progress mb-2">
+                <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+            </div>
+            <div id="progress-message" class="mb-2">Initializing import...</div>
+            <div id="progress-details" class="small"></div>
+            <div id="failed-parts-container" class="mt-3" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6>Parts with errors:</h6>
+                    <!-- Removed top close button -->
+                </div>
+                <div class="alert alert-warning">
+                    <p>The following parts could not be fully processed and may require manual attention:</p>
+                    <ul id="failed-parts-list"></ul>
+                </div>
+                <div class="text-center mt-3">
+                    <button id="close-progress-container" class="btn btn-primary">Close and refresh</button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <!-- Left Column: Overview and Actions -->
+            <div class="col-md-4">
+                <!-- Buildable Units -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-microchip me-2"></i>Buildable Units
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="buildable-counts">
+                            {% if devices_with_bom|length > 0 %}
+                                {% for device in devices_with_bom %}
+                                <div class="d-flex justify-content-between align-items-center mb-3 device-row" data-device-id="{{ device.id|e }}">
+                                    <span class="device-name-display">{{ device.name|e }}</span>
+                                    <div class="buildable-info">
+                                        {% set buildable = get_buildable_count(device.id) %}
+                                        {% set percentage = get_buildable_percentage(device.id) %}
+                                        <div class="d-flex flex-column align-items-end">
+                                            <span class="buildable-count">{{ buildable|e }}</span>
+                                            <div class="progress buildable-progress">
+                                                <div class="progress-bar {% if percentage >= 100 %}bg-success{% elif percentage >= 50 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                     role="progressbar" 
+                                                     style="width: {{ percentage|e }}%;" 
+                                                     aria-valuenow="{{ percentage|e }}" 
+                                                     aria-valuemin="0" 
+                                                     aria-valuemax="100">
+                                                    {% if percentage < 100 %}{{ percentage|e }}%{% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btn-group btn-group-sm ms-2">
+                                            <button class="btn btn-outline-danger delete-device-btn" data-device-id="{{ device.id|e }}" data-device-name="{{ device.name|e }}" title="Delete device">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                
+                                {% if count_unassigned_parts() > 0 %}
+                                <hr class="my-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2 device-row unassigned-row">
+                                    <span class="device-name-display text-danger">Usage - n/a</span>
+                                    <div class="buildable-info">
+                                        <span class="buildable-count">{{ count_unassigned_parts()|e }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% else %}
+                                <div class="text-center text-muted py-3">
+                                    <p>No devices with BOM references available</p>
+                                    <p class="small">Upload BOM files to display your devices here</p>
+                                </div>
+                                
+                                {% if count_unassigned_parts() > 0 %}
+                                <hr class="my-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2 device-row unassigned-row">
+                                    <span class="device-name-display text-danger">Usage - n/a</span>
+                                    <div class="buildable-info">
+                                        <span class="buildable-count">{{ count_unassigned_parts()|e }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Component -->
+                {% include 'partials/add_part_form.html' %}
+
+                <!-- BOM Import -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-file-import me-2"></i>BOM Import
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h6 class="mb-2">BOM Format Requirements:</h6>
+                            <ol class="ps-3 small">
+                                <li>The CSV file must define the device in the <strong>first row</strong>: <code>Device,Name v1.0</code></li>
+                                <li>The <strong>second row</strong> contains column headers: <code>DigiKey-No,Quantity</code></li>
+                                <li>All subsequent rows contain components with DigiKey number and required quantity</li>
+                                <li>Comma or semicolon can be used as separators</li>
+                            </ol>
+                        </div>
+                        <form action="/import_csv" method="post" enctype="multipart/form-data" id="bom-import-form">
+                            <input type="hidden" id="device_id" name="device_id" value="auto">
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Select CSV file</label>
+                                <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100" id="bom-upload-btn">
+                                <i class="fas fa-upload me-2"></i>Upload BOM
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Inventory -->
+            <div class="col-md-8">
+                <!-- Filter and Search -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-filter me-2"></i>Filter and Search
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="search-box">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" id="search-input" class="form-control search-input" placeholder="Search for part number or description...">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex flex-wrap">
+                                    <div class="model-selector active" data-model="all">All</div>
+                                    {% for device in devices_with_bom %}
+                                    <div class="model-selector" data-model="{{ device.id|e }}">{{ device.name|e }}</div>
+                                    {% endfor %}
+                                    {% if has_unassigned_parts() %}
+                                    <div class="model-selector unassigned-filter" data-model="unassigned">Usage - n/a</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory List -->
+                {% include 'partials/inventory_table.html' %}
+            </div>
+        </div>
+
+        <!-- Missing Parts Analysis -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Missing Parts Analysis
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select id="missing-parts-model" class="form-select mb-3">
+                                    <option value="">Select hardware model</option>
+                                    {% for device in devices_with_bom %}
+                                    <option value="{{ device.id|e }}">{{ device.name|e }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button id="show-missing-parts" class="btn btn-danger w-100" disabled>
+                                    <i class="fas fa-search me-2"></i>Show Missing Parts
+                                </button>
+                            </div>
+                            <div class="col-md-9">
+                                <div id="missing-parts-container" style="display: none;">
+                                    <h4 id="missing-parts-title">Missing Parts for <span id="model-name"></span></h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-striped" id="missing-parts-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Manufacturer Part Number</th>
+                                                    <th>Description</th>
+                                                    <th class="text-center">Required</th>
+                                                    <th class="text-center">Available</th>
+                                                    <th class="text-center">Missing</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="missing-parts-body">
+                                                <!-- Dynamically filled -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- API Test Button -->
+        <div class="row mt-4 mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-vial me-2"></i>API Test
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-4">
+                                <input type="text" id="api-test-input" class="form-control" placeholder="Enter DigiKey Number...">
+                            </div>
+                            <div class="col-md-2">
+                                <button onclick="testApiConnection(document.getElementById('api-test-input').value)" class="btn btn-info w-100">
+                                    <i class="fas fa-plug me-2"></i>Test API
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    {% include 'partials/modals.html' %}
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+    
+    <!-- Application script -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

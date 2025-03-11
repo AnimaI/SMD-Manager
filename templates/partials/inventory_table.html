@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-list me-2"></i>Component Inventory
+            <div class="form-check form-switch ms-3">
+                <input class="form-check-input" type="checkbox" id="delete-mode-switch">
+                <label class="form-check-label" for="delete-mode-switch">
+                    <span class="delete-mode-label">Delete function disabled</span>
+                </label>
+            </div>
+        </div>
+        <div class="component-count">
+            <span id="filtered-count">{{ smd_parts|length }}</span> / <span>{{ smd_parts|length }}</span> Components
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0" id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>MP-No.</th>
+                        <th>DK-No.</th>
+                        <th>Description</th>
+                        <th class="text-center">Stock (Qty)</th>
+                        <th>Usage</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for part in smd_parts %}
+                    <tr data-part-id="{{ part.id|e }}" class="{{ get_part_status_class(part) }}">
+                        <td>{{ part.part_number|e }}</td>
+                        <td>{{ part.digikey_number|e }}</td>
+                        <td>{{ part.description|e }}</td>
+                        <td class="text-center">
+                            <span class="badge {% if part.quantity == 0 %}bg-danger{% else %}bg-primary{% endif %} stock-qty-display" data-part-id="{{ part.id|e }}">{{ part.quantity|e }}</span>
+                            <button class="btn btn-sm btn-outline-primary edit-stock-btn ms-1" data-part-id="{{ part.id|e }}" data-part-quantity="{{ part.quantity|e }}" title="Edit stock">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <div class="device-usage-container">
+                                {% set devices = get_part_devices(part.id) %}
+                                {% if devices|length > 0 %}
+                                    {% for device in devices %}
+                                        <div class="device-badge filtered-device" title="{{ device.device_name|e }}: {{ device.qty_required|e }} required" 
+                                            data-part-id="{{ part.id|e }}" data-device-id="{{ device.device_id|e }}" data-device-name="{{ device.device_name|e }}" data-qty="{{ device.qty_required|e }}">
+                                            <span class="device-name">{{ device.device_name|e }}</span>
+                                            <span class="device-qty edit-device-qty">{{ device.qty_required|e }}</span>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="device-badge unassigned-badge" title="Not assigned" data-part-id="{{ part.id|e }}" data-is-unassigned="true">
+                                        <span class="device-name text-danger">Usage - n/a</span>
+                                    </div>
+                                {% endif %}
+                                
+                                <button class="btn btn-sm btn-outline-primary add-usage-btn ms-1" data-part-id="{{ part.id|e }}" title="Add usage">
+                                    <i class="fas fa-plus-circle"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <button class="btn btn-sm btn-outline-danger delete-part-btn" data-part-id="{{ part.id|e }}" disabled title="Delete part">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

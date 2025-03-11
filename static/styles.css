@@ -1,0 +1,270 @@
+/* General Styles */
+body {
+    background-color: #f8f9fa;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+/* Status colors for parts */
+.part-status-ok {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.part-status-low {
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.part-status-missing {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Missing part marking */
+.missing-part-warning {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Progress bar for upload */
+#upload-progress-container {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#progress-bar {
+    transition: width 0.3s ease;
+}
+
+#progress-message {
+    font-weight: 500;
+}
+
+#progress-details {
+    color: #6c757d;
+}
+
+#failed-parts-container {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+#failed-parts-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* Search input */
+.search-box {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    color: #6c757d;
+}
+
+.search-input {
+    padding-left: 30px;
+}
+
+/* Model selectors */
+.model-selector {
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    background-color: #e9ecef;
+}
+
+.model-selector.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.model-selector.unassigned-filter {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.model-selector.unassigned-filter.active {
+    background-color: #dc3545;
+    color: #fff;
+    border: 1px solid #dc3545;
+}
+
+/* Device badges in the usage column */
+.device-usage-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+
+.device-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #e9ecef;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.device-badge:hover {
+    background-color: #dee2e6;
+}
+
+.device-badge.unassigned-badge {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.device-badge.unassigned-badge:hover {
+    background-color: #f1b0b7;
+}
+
+.device-name {
+    margin-right: 5px;
+}
+
+.device-qty {
+    background-color: #007bff;
+    color: #fff;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.edit-device-qty:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+/* Buildable counts styling */
+.buildable-count {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+}
+
+.buildable-info {
+    display: flex;
+    align-items: center;
+}
+
+.buildable-progress {
+    width: 100px;
+    height: 10px;
+    margin-top: 2px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    font-size: 8px;
+    line-height: 10px;
+    text-align: center;
+}
+
+/* Device list in "Buildable Units" */
+.device-row {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.device-row:last-child {
+    border-bottom: none;
+}
+
+.device-row.unassigned-row {
+    background-color: #f8f9fa;
+}
+
+.device-name-display {
+    font-weight: 500;
+    width: 50%;
+}
+
+/* Select2 customization for multiple selection */
+.select2-container--default .select2-selection--multiple {
+    border-color: #ced4da;
+    min-height: 38px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 2px 8px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: white;
+    margin-right: 5px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: #f8f9fa;
+}
+
+/* Animations for loading and updating */
+.fade-in {
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.add-usage-btn {
+    font-size: 0.7rem;
+    padding: 2px 5px;
+    height: 22px;
+    width: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Tooltip customization */
+.tooltip-inner {
+    max-width: 300px;
+    padding: 8px 12px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Error parts style adjustments */
+.error-part {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Animation for the upload button */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.uploading {
+    animation: pulse 1.5s infinite;
+}
