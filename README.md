@@ -162,19 +162,18 @@ If you like this project and want to support future work, I would appreciate a d
     <td align="center" width="40%" style="padding: 50px; border: none;">
       <img src="docs/img/bmc_qr.png" alt="Buy Me A Coffee QR Code" style="display: block; margin: auto;" width="200"/>
       <p style="text-align: center;"><strong>Buy Me A Coffee:</strong><br>
-        <a href="https://buymeacoffee.com/_animai" target="_blank" rel="noopener noreferrer">buymeacoffee.com/_animai</a>
+      <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="_animai" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
       </p>
     </td>
     <td width="20%" style="border: none;"></td> <!-- Empty column for spacing -->
     <td align="center" width="40%" style="padding: 50px; border: none;">
       <img src="docs/img/qrcode_ko-fi.png" alt="Ko-fi QR Code" style="display: block; margin: auto;" width="200"/>
       <p style="text-align: center;"><strong>Ko-fi:</strong><br>
-        <a href="https://ko-fi.com/akamai" target="_blank" rel="noopener noreferrer">ko-fi.com/akamai</a>
+      <a href='https://ko-fi.com/B0B21BSWAP' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
       </p>
     </td>
   </tr>
 </table>
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
