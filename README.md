@@ -148,9 +148,9 @@ If you like this project and want to support future work, I would appreciate a d
 
 <a href="https://www.buymeacoffee.com/_animai" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-**Bitcoin (BTC):** <img src="docs/img/bitcoin.svg" height="16" width="16" style="vertical-align: middle;"> bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd
+**Bitcoin (BTC):** <img src="docs/img/bitcoin.svg" height="32" width="32" style="vertical-align: middle;"> bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd
 
-**Bitcoin Lightning:** <img src="docs/img/alby.svg" height="16" width="16" style="vertical-align: middle;"> animai@getalby.com
+**Bitcoin Lightning:** <img src="docs/img/alby.svg" height="32" width="32" style="vertical-align: middle;"> animai@getalby.com
   </tr>
 </table>
 
