@@ -158,6 +158,21 @@ If you like this project and want to support future work, I would appreciate a d
       </p>
     </td>
   </tr>
+  <tr>
+    <td align="center" width="40%" style="padding: 50px; border: none;">
+      <img src="docs/img/bmc_qr.png" alt="Buy Me A Coffee QR Code" style="display: block; margin: auto;" width="200"/>
+      <p style="text-align: center;"><strong>Buy Me A Coffee:</strong><br>
+        <a href="https://buymeacoffee.com/_animai" target="_blank" rel="noopener noreferrer">buymeacoffee.com/_animai</a>
+      </p>
+    </td>
+    <td width="20%" style="border: none;"></td> <!-- Empty column for spacing -->
+    <td align="center" width="40%" style="padding: 50px; border: none;">
+      <img src="docs/img/qrcode_ko-fi.png" alt="Ko-fi QR Code" style="display: block; margin: auto;" width="200"/>
+      <p style="text-align: center;"><strong>Ko-fi:</strong><br>
+        <a href="https://ko-fi.com/akamai" target="_blank" rel="noopener noreferrer">ko-fi.com/akamai</a>
+      </p>
+    </td>
+  </tr>
 </table>
 
 ## License
