@@ -148,9 +148,9 @@ If you like this project and want to support future work, I would appreciate a d
 
 <a href="https://www.buymeacoffee.com/_animai" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 42px !important;width: auto !important;" ></a>
 
-<p><img src="docs/img/bitcoin.svg" height="20" width="20" style="vertical-align: middle; margin-bottom: 3px;"> bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd</p>
+<p><img src="docs/img/bitcoin.svg" height="32" width="32" style="vertical-align: middle; margin-bottom: 3px;"> bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd</p>
 
-<p><img src="docs/img/alby.svg" height="20" width="20" style="vertical-align: middle; margin-bottom: 3px;"> <a href="https://getalby.com/p/animai">animai@getalby.com</a> <strong>Bitcoin Lightning</strong></p>
+<p><img src="docs/img/alby.svg" height="32" width="32" style="vertical-align: middle; margin-bottom: 3px;"> <a href="https://getalby.com/p/animai">animai@getalby.com</a> (Bitcoin Lightning)</p>
 
 ## License
 
