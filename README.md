@@ -162,7 +162,7 @@ If you like this project and want to support future work, I would appreciate a d
     <td align="center" width="40%" style="padding: 50px; border: none;">
       <img src="docs/img/bmc_qr.png" alt="Buy Me A Coffee QR Code" style="display: block; margin: auto;" width="200"/>
       <p style="text-align: center;"><strong>Buy Me A Coffee:</strong><br>
-      <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="_animai" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+      <a href="https://www.buymeacoffee.com/_animai" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=_animai&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="Buy Me A Coffee" height="40"></a>
       </p>
     </td>
     <td width="20%" style="border: none;"></td> <!-- Empty column for spacing -->
@@ -174,6 +174,7 @@ If you like this project and want to support future work, I would appreciate a d
     </td>
   </tr>
 </table>
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
