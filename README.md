@@ -144,34 +144,13 @@ The application uses the DigiKey API for product information. To use this:
 
 If you like this project and want to support future work, I would appreciate a donation:
 
-<table style="border-collapse: collapse; border: none; width: 100%;">
-  <tr>
-    <td align="center" width="40%" style="padding: 50px; border: none;">
-      <img src="docs/img/btc_qr.png" alt="Bitcoin QR Code" style="display: block; margin: auto;" width="200"/>
-      <p style="text-align: center;"><strong>Bitcoin (BTC):</strong><br>bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd</p>
-    </td>
-    <td width="20%" style="border: none;"></td> <!-- Empty column for spacing -->
-    <td align="center" width="40%" style="padding: 50px; border: none;">
-      <img src="docs/img/btc-lightning_qr.svg" alt="Bitcoin Lightning QR Code" style="display: block; margin: auto;" width="200"/>
-      <p style="text-align: center;"><strong>Bitcoin Lightning:</strong><br>
-        <a href="https://getalby.com/p/animai" target="_blank" rel="noopener noreferrer">animai@getalby.com</a>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="40%" style="padding: 50px; border: none;">
-      <img src="docs/img/bmc_qr.png" alt="Buy Me A Coffee QR Code" style="display: block; margin: auto;" width="200"/>
-      <p style="text-align: center;"><strong>Buy Me A Coffee:</strong><br>
-      <a href="https://www.buymeacoffee.com/_animai" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=_animai&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="Buy Me A Coffee" height="40"></a>
-      </p>
-    </td>
-    <td width="20%" style="border: none;"></td> <!-- Empty column for spacing -->
-    <td align="center" width="40%" style="padding: 50px; border: none;">
-      <img src="docs/img/qrcode_ko-fi.png" alt="Ko-fi QR Code" style="display: block; margin: auto;" width="200"/>
-      <p style="text-align: center;"><strong>Ko-fi:</strong><br>
-      <a href='https://ko-fi.com/B0B21BSWAP' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-      </p>
-    </td>
+<a href='https://ko-fi.com/B0B21BSWAP' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
+<a href="https://www.buymeacoffee.com/_animai" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+**Bitcoin (BTC):** <img src="docs/img/bitcoin.svg" height="16" width="16" style="vertical-align: middle;"> bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd
+
+**Bitcoin Lightning:** <img src="docs/img/alby.svg" height="16" width="16" style="vertical-align: middle;"> animai@getalby.com
   </tr>
 </table>
 
