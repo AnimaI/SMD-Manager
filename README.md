@@ -146,11 +146,11 @@ If you like this project and want to support future work, I would appreciate a d
 
 <a href='https://ko-fi.com/B0B21BSWAP' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
-<a href="https://www.buymeacoffee.com/_animai" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 36px !important;width: auto !important;" ></a>
+<a href="https://www.buymeacoffee.com/_animai" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 42px !important;width: auto !important;" ></a>
 
-<p><strong>Bitcoin (BTC):</strong> <img src="docs/img/bitcoin.svg" height="32" width="32" style="vertical-align: middle; margin-bottom: 3px;"> <a href="bitcoin:bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd">bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd</a></p>
+<p><img src="docs/img/bitcoin.svg" height="20" width="20" style="vertical-align: middle; margin-bottom: 3px;"> bc1qkz29mjsyn5k4hwezf7gxg4gnleh85k0wnm8htd</p>
 
-<p><strong>Bitcoin Lightning:</strong> <img src="docs/img/alby.svg" height="32" width="32" style="vertical-align: middle; margin-bottom: 3px;"> <a href="https://getalby.com/p/animai">animai@getalby.com</a></p>
+<p><img src="docs/img/alby.svg" height="20" width="20" style="vertical-align: middle; margin-bottom: 3px;"> <a href="https://getalby.com/p/animai">animai@getalby.com</a> <strong>Bitcoin Lightning</strong></p>
 
 ## License
 
