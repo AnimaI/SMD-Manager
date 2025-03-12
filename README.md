@@ -114,6 +114,75 @@ sudo systemctl status smd-manager
 sudo journalctl -u smd-manager -f
 ```
 
+### Redis Cache Configuration (Optional)
+
+While the application works without Redis (using in-memory caching), Redis provides better caching performance for DigiKey API calls.
+
+#### Installing and Configuring Redis
+
+**Ubuntu/Debian:**
+```bash
+# Install Redis
+sudo apt update
+sudo apt install redis-server
+
+# Edit the configuration to enable as a service
+sudo nano /etc/redis/redis.conf
+# Change 'supervised no' to 'supervised systemd'
+
+# Restart and enable Redis
+sudo systemctl restart redis-server
+sudo systemctl enable redis-server
+```
+
+**CentOS/RHEL/Fedora:**
+```bash
+# Install Redis
+sudo yum install redis
+
+# Start and enable Redis
+sudo systemctl start redis
+sudo systemctl enable redis
+```
+
+**Verify Redis is running:**
+```bash
+redis-cli ping
+# Should respond with PONG
+```
+
+#### Configure Application to Use Redis
+
+1. Update your `.env` file with Redis settings:
+```
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_DB=0
+```
+
+2. If using the systemd service method, ensure these values are included in the `EnvironmentFile` or add them directly to the service file:
+```
+# In /etc/systemd/system/smd-manager.service, add:
+Environment="REDIS_HOST=localhost"
+Environment="REDIS_PORT=6379"
+Environment="REDIS_DB=0"
+```
+
+3. Reload systemd and restart the service:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart smd-manager
+```
+
+#### Checking Redis Status
+
+You can check if the application is using Redis by looking at the logs:
+```bash
+sudo journalctl -u smd-manager | grep "Redis cache"
+```
+
+If functioning correctly, you should see: "Redis cache enabled"
+
 ## BOM Format
 
 The application supports CSV files with the following format:
