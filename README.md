@@ -11,6 +11,8 @@ An application for managing SMD components, BOM imports, and device assignments.
 - Analysis of missing parts for device production
 - Responsive user interface
 
+<img src="docs/img/SMD-Manager.png" width="800">
+
 ## Requirements
 
 - Python 3.8 or higher
