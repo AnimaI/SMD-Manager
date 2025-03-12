@@ -17,6 +17,7 @@ An application for managing SMD components, BOM imports, and device assignments.
 - Flask
 - SQLAlchemy
 - Redis (optional for improved caching)
+- python-dotenv
 
 ## Installation
 
@@ -30,7 +31,7 @@ cd SMD-Manager
 
 2. Create and activate virtual environment:
 ```bash
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  
 # On Windows: venv\Scripts\activate
 ```
@@ -72,24 +73,40 @@ docker-compose up -d
 
 ### Option 3: Setting up as a systemd service
 
-1. Create a systemd service file:
+1. Install the application following Option 1 steps 1-4 in your desired location.
+
+2. Create a systemd service file:
 ```bash
 sudo nano /etc/systemd/system/smd-manager.service
 ```
 
-2. Add the following configuration (adjust paths as needed):
+3. Add the following configuration (adjust all paths and user/group settings to match your environment):
 ```
 [Unit]
 Description=SMD Manager Service
-After=network.target
+After=network.target redis-server.service
+Requires=redis-server.service
 
 [Service]
-User=youruser
-Group=yourgroup
-WorkingDirectory=/path/to/SMD-Manager
-Environment="PATH=/path/to/SMD-Manager/venv/bin"
-EnvironmentFile=/path/to/SMD-Manager/.env
-ExecStart=/path/to/SMD-Manager/venv/bin/python app.py
+# Replace with actual user/group that should run the service
+# For a system-wide installation, consider using a dedicated user
+User=REPLACE_WITH_ACTUAL_USER
+Group=REPLACE_WITH_ACTUAL_GROUP
+
+# Replace with the actual path to your SMD-Manager installation
+WorkingDirectory=REPLACE_WITH_PATH_TO_SMD_MANAGER
+Environment="PATH=REPLACE_WITH_PATH_TO_SMD_MANAGER/venv/bin"
+
+# Redis configuration (if using Redis)
+Environment="REDIS_HOST=localhost"
+Environment="REDIS_PORT=6379"
+Environment="REDIS_DB=0"
+
+# Path to your .env file with settings
+EnvironmentFile=REPLACE_WITH_PATH_TO_SMD_MANAGER/.env
+
+# Path to the Python interpreter in your virtual environment
+ExecStart=REPLACE_WITH_PATH_TO_SMD_MANAGER/venv/bin/python3 app.py
 Restart=always
 RestartSec=10
 
@@ -97,19 +114,19 @@ RestartSec=10
 WantedBy=multi-user.target
 ```
 
-3. Reload systemd, enable and start the service:
+4. Reload systemd, enable and start the service:
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable smd-manager
 sudo systemctl start smd-manager
 ```
 
-4. Check service status:
+5. Check service status:
 ```bash
 sudo systemctl status smd-manager
 ```
 
-5. View logs:
+6. View logs:
 ```bash
 sudo journalctl -u smd-manager -f
 ```
@@ -160,13 +177,7 @@ REDIS_PORT=6379
 REDIS_DB=0
 ```
 
-2. If using the systemd service method, ensure these values are included in the `EnvironmentFile` or add them directly to the service file:
-```
-# In /etc/systemd/system/smd-manager.service, add:
-Environment="REDIS_HOST=localhost"
-Environment="REDIS_PORT=6379"
-Environment="REDIS_DB=0"
-```
+2. If using the systemd service method, ensure these values are included in the service file as shown in the example above.
 
 3. Reload systemd and restart the service:
 ```bash
