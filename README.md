@@ -234,4 +234,4 @@ If you like this project and want to support future work, I would appreciate a d
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details. This means you can freely use, modify and distribute this software, but if you distribute derivative works, you must make them available under the same license (GPL-3.0) and provide the source code.
